@@ -1,0 +1,72 @@
+.quote-submission-container{
+    display:flex;
+    flex-direction:column;
+    background-color:lightblue;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.5);;
+    padding:10px;
+    align-items: center;
+}
+
+.quote-submission-container h1{
+    font-size:36px;
+}
+
+.quote-submission-container form{
+    display:flex;
+    flex-direction: column;
+}
+
+.quote-submission-container input{
+    margin:15px;
+    width:30vw;
+    height:5vh;
+    border-radius:20px;
+    border: 2px solid rgba(255,255,255,0.5);
+    color:white;
+    cursor:pointer;
+}
+
+
+
+input[type=text] {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .button{
+    background-color:rgba(0,0,0,0.9);
+    padding-left:10px;
+    padding-right:10px;
+    border-radius:10px;
+    border:2px solid rgba(255,255,255,0.5);;
+  }
+
+  .button:hover{
+    opacity:0.7;
+    cursor:pointer;
+}
+
+.roof-info{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+}
+
+.roof-info input{
+    width:15vw;
+}
+
+.dropdown-label{
+    display: flex;
+    background-color:rgba(0,0,0,0.9);
+    width:10vw;
+    height:5vh;
+    border-radius:20px;
+    border:2px solid rgba(255,255,255,0.5);
+    align-items: center;
+    justify-content: center;
+}
+  
+
