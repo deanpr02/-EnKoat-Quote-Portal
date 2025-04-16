@@ -1,26 +1,25 @@
-import { useEffect,useState } from 'react'
+import { useEffect,useState,useCallback } from 'react'
 
 export function useFetchQuotes(){
     const [quotes,setQuotes] = useState(undefined)
     
-    useEffect(() => {
-        const fetchFromDatabase = async () => {
-            try{
-                const response = await fetch('/api/get_quotes');
-                if(!response.ok){
-                    throw new Error(`HTTP error, stats: ${response.status}`);
-                }
-                    const result = await response.json()
-                    setQuotes(result)
+    const fetchQuotes = useCallback(async () => {
+        try{
+            const response = await fetch('/api/get_quotes');
+            if(!response.ok){
+                throw new Error(`HTTP error, stats: ${response.status}`);
             }
-            catch (error) {
-                console.error('Fetch error:',error);
-            }
+                const result = await response.json()
+                setQuotes(result)
         }
+        catch (error) {
+            console.error('Fetch error:',error);
+        }
+    },[]);
 
-        fetchFromDatabase()
+    useEffect(() => {
+        fetchQuotes();
+    },[fetchQuotes]);
 
-    },[])
-
-    return {quotes}
+    return {quotes,refetch:fetchQuotes}
 }

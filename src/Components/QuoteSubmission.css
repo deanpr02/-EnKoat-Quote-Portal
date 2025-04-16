@@ -1,5 +1,9 @@
 .quote-submission-container{
     display:flex;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
     flex-direction:column;
     background-color: #222222;
     border-radius: 10px;
@@ -7,6 +11,16 @@
     padding:10px;
     align-items: center;
     width:50%;
+}
+
+.background-filter{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index:4;
 }
 
 .quote-submission-container h1{
@@ -67,5 +81,20 @@ input[type=text] {
     align-items: center;
     justify-content: center;
     width:15vw;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+    
 }
 
