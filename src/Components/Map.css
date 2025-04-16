@@ -1,0 +1,9 @@
+.map-container{
+    margin:10px;
+    background-color: rgba(50,50,50,0.5);
+    width:50%;
+    padding:10px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}

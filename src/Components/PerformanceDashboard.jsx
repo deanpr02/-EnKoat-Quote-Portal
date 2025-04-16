@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { BarChart } from '@mui/x-charts'
 import { useStateTotals } from '../Hooks/useStateTotals'
+import Map from './Map';
 
 import './PerformanceDashboard.css'
 
@@ -8,12 +10,14 @@ import './PerformanceDashboard.css'
 //have a picture of the state and then it shows dots on the map of locations and if you hover over it it says the number of quotes
 
 export default function PerformanceDashboard({quotes}){
-const { totals,refetch } = useStateTotals();
+    const { totals,refetch } = useStateTotals();
+    const [selectedState,setSelectedState] = useState('CA')
 
     return(
         <div className='performance-container'>
             <p>Performance</p>
             {totals && <QuotesBarChart totals={totals}/>}
+            <Map selectedState={selectedState}/>
         </div>
     )
 }
