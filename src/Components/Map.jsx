@@ -1,15 +1,19 @@
 import { useState,useEffect,useRef } from 'react'
 import { useStateInfo } from '../Hooks/useStateInfo'
+import DropDown from './Dropdown';
 
 import './Map.css'
 
-export default function Map({selectedState}){
+const states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+
+export default function Map({selectedState,setSelectedState}){
     const { stateInfo,stateImage } = useStateInfo(selectedState);
     
     return(
-        <>
+        <div className='map-main-container'>
+            <DropDown data={states} state={selectedState} setFunc={setSelectedState}/>
             {stateInfo && <State left={stateInfo.left} right={stateInfo.right} top={stateInfo.top} bottom={stateInfo.bottom} cities={stateInfo.cities} image={stateImage}/>}
-        </>
+        </div>
     )
 }
 
@@ -19,6 +23,7 @@ function State({left,right,top,bottom,cities,image}){
     const convertToScreenCoords = (lat,long,width,height) => {
         const screenY = height -((lat-bottom) / (top-bottom)) * height;
         const screenX = ((long-left) / (right-left)) * width;
+
         return { screenX,screenY };
     }
 

@@ -11,13 +11,13 @@ import './PerformanceDashboard.css'
 
 export default function PerformanceDashboard({quotes}){
     const { totals,refetch } = useStateTotals();
-    const [selectedState,setSelectedState] = useState('CA')
+    const [selectedState,setSelectedState] = useState('AZ')
 
     return(
         <div className='performance-container'>
             <p>Performance</p>
             {totals && <QuotesBarChart totals={totals}/>}
-            <Map selectedState={selectedState}/>
+            <Map selectedState={selectedState} setSelectedState={setSelectedState}/>
         </div>
     )
 }

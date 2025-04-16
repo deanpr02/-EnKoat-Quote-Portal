@@ -1,9 +1,17 @@
 .map-container{
     margin:10px;
     background-color: rgba(50,50,50,0.5);
-    width:50%;
     padding:10px;
     display:flex;
     align-items:center;
     justify-content: center;
+    border: 2px solid black;
+}
+
+.map-main-container{
+    display:flex;
+    background-color: rgba(50,50,50,0.5);
+    width:50%;
+    flex-direction:column;
+    border-radius: 10px;
 }
