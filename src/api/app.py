@@ -59,10 +59,10 @@ def get_database():
 
 @app.route('/api/state_totals',methods=['GET'])
 def get_state_totals():
-    state_totals = {}
+    state_totals = []
     for state in states:
         state_quotes = Quote.query.filter_by(state=state).all()
-        state_totals[state] = len(state_quotes)
+        state_totals.append({'x':state,'y':len(state_quotes)})
     
     return jsonify(state_totals)
 

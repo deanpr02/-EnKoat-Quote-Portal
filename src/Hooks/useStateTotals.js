@@ -10,7 +10,6 @@ export function useStateTotals(){
                 throw new Error(`HTTP error, stats: ${response.status}`);
             }
                 const result = await response.json()
-                console.log(result)
                 setTotals(result)
         }
         catch (error) {

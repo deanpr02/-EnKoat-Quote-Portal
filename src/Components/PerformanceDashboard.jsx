@@ -1,3 +1,4 @@
+import { BarChart } from '@mui/x-charts'
 import { useStateTotals } from '../Hooks/useStateTotals'
 
 import './PerformanceDashboard.css'
@@ -12,6 +13,26 @@ const { totals,refetch } = useStateTotals();
     return(
         <div className='performance-container'>
             <p>Performance</p>
+            {totals && <QuotesBarChart totals={totals}/>}
+        </div>
+    )
+}
+
+function QuotesBarChart({totals}){
+    const xValues = totals.map(item => item.x);
+    const yValues = totals.map(item => item.y);
+
+    return(
+        <div style={{display:'flex',width:1100,height:300}}>
+            <div style={{ textAlign: 'center',marginTop: 8,fontSize: 10, color: '#444',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
+                # of quotes
+            </div>
+            <BarChart 
+                series={[{data:yValues}]}
+                xAxis={[{scaleType: 'band',data:xValues,dataKey:'States',tickLabelStyle:{fontSize:10}}]}
+                yAxis={[]}
+            />
+
         </div>
     )
 }

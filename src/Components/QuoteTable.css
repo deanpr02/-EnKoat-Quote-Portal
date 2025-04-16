@@ -1,7 +1,9 @@
 .quote-table-label{
     display:flex;
     flex-direction:row;
-    border-bottom:2px solid gray;
+    border-top: 2px solid gray;
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
     font-weight:bold;
     font-size:0.8vw;
     align-items: center;
@@ -14,7 +16,10 @@
     width:7vw;
     align-items: center;
     justify-content: center;
+    cursor:pointer
 }
+
+
 
 
 .quote-table-container{
@@ -27,6 +32,15 @@
     overflow:scroll;
     border: 2px solid rgba(200,200,200,0.7);
     height:70vh;
+}
+
+.data-table-members::-webkit-scrollbar {
+    display: none;
+  }
+  
+.data-table-members {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .quote-table-row{
