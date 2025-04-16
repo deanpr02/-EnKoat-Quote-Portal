@@ -31,6 +31,27 @@ def add_quote():
         return jsonify({'status':'success'},201)
     except:
         return {'failed'},400
+    
+@app.route('/api/get_quotes',methods=['GET'])
+def get_database():
+    quotes = Quote.query.all()
+
+    quotes_list = []
+    for q in quotes:
+        quotes_list.append(
+            {
+                'id': q.id,
+                'contractor_name': q.contractor_name,
+                'company_name': q.company_name,
+                'roof_size': q.roof_size,
+                'roof_type': q.roof_type,
+                'city': q.city,
+                'state': q.state,
+                'date': q.date
+            }
+        )
+        
+    return jsonify(quotes_list)
 
 if __name__ == '__main__':
     with app.app_context():

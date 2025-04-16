@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import QuoteSubmission from './QuoteSubmission'
+import QuoteTable from './QuoteTable'
 import './App.css'
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
 
   return (
     <div style={{width:'100%'}}>
-      <QuoteSubmission/>
+      {/*<QuoteSubmission/>*/}
+      <QuoteTable/>
     </div>
   )
 }

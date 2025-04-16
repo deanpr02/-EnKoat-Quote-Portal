@@ -1,0 +1,39 @@
+.quote-table-label{
+    display:flex;
+    flex-direction:row;
+    border-bottom:2px solid gray;
+    font-weight:bold;
+
+}
+
+.column{
+    display:flex;
+    width:7vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.quote-table-container{
+    width:50%;
+    border-radius:10px;
+    border: 2px solid rgba(200,200,200,0.7);
+    height:90vh;
+    overflow:scroll;
+}
+
+.quote-table-row{
+    display:flex; 
+    padding:2px;
+    border-bottom:2px solid gray;
+    z-index:0;
+    font-size:12px;
+    overflow:hidden;
+}
+
+.row-value{
+    width:7vw;
+    height:5vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
