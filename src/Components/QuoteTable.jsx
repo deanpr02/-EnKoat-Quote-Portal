@@ -6,10 +6,12 @@ export default function QuoteTable({quotes,setIsEnterQuote}){
     return(
         <div className='quote-table-container'>
             <TableLabel setIsEnterQuote={setIsEnterQuote}/>
+            <div className='data-table-members'>
             {quotes && 
                 quotes.map((obj,i) => {
                     return <DataRow quote={obj} colorKey={i}/>
                 })}
+            </div>
         </div>
     )
 }

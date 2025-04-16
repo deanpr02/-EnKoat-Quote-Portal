@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect, jsonify
 from flask_cors import CORS
 from database import db, Quote
 import config
+import json
+
+states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
 
 app = Flask(__name__)
 CORS(app)
@@ -53,7 +56,37 @@ def get_database():
         
     return jsonify(quotes_list)
 
+
+@app.route('/api/state_totals',methods=['GET'])
+def get_state_totals():
+    state_totals = {}
+    for state in states:
+        state_quotes = Quote.query.filter_by(state=state).all()
+        state_totals[state] = len(state_quotes)
+    
+    return jsonify(state_totals)
+
+
+
+"""
+Function to preload our database with randomly generated quote data in the contractors.json file
+"""
+def preload_database():
+    path = './src/api/contractors.json'
+    with open(path,'r') as f:
+        data = json.load(f)
+    
+    for item in data:
+        q = Quote(contractor_name=item['contractor_name'],company_name=item['company_name'],roof_size=item['roof_size'],roof_type=item['roof_type'],city=item['city'],state=item['state'],date=item['date'])
+        db.session.add(q)
+    db.session.commit()
+    print('Database successfully loaded')
+
+
 if __name__ == '__main__':
     with app.app_context():
+        #db.drop_all()
+        #db.session.commit()
         db.create_all()
+        #preload_database()
     app.run(debug=True,port=5000)

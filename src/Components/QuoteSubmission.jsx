@@ -10,8 +10,6 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
     const [roofType,setRoofType] = useState('Foam');
     const [city,setCity] = useState('');
     const [state,setState] = useState('');
-    const [error,setError] = useState(false);
-
 
     const roofTypes = ['Foam','Metal','TPO'];
 
