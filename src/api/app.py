@@ -72,7 +72,7 @@ def get_state_totals():
 Function to preload our database with randomly generated quote data in the contractors.json file
 """
 def preload_database():
-    path = './src/api/contractors.json'
+    path = './contractors.json'
     with open(path,'r') as f:
         data = json.load(f)
     
@@ -85,8 +85,8 @@ def preload_database():
 
 if __name__ == '__main__':
     with app.app_context():
-        #db.drop_all()
-        #db.session.commit()
+        db.drop_all()
+        db.session.commit()
         db.create_all()
-        #preload_database()
+        preload_database()
     app.run(debug=True,port=5000)
