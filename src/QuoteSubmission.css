@@ -1,11 +1,12 @@
 .quote-submission-container{
     display:flex;
     flex-direction:column;
-    background-color:lightblue;
+    background-color: #222222;
     border-radius: 10px;
     border: 2px solid rgba(255,255,255,0.5);;
     padding:10px;
     align-items: center;
+    width:50%;
 }
 
 .quote-submission-container h1{
@@ -57,16 +58,14 @@ input[type=text] {
 .roof-info input{
     width:15vw;
 }
+  
 
-.dropdown-label{
-    display: flex;
-    background-color:rgba(0,0,0,0.9);
-    width:10vw;
-    height:5vh;
-    border-radius:20px;
-    border:2px solid rgba(255,255,255,0.5);
+.location{
+    display:flex;
+    flex-direction: row;
+    align-self: center;
     align-items: center;
     justify-content: center;
+    width:15vw;
 }
-  
 
