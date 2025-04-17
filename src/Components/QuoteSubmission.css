@@ -7,7 +7,7 @@
     flex-direction:column;
     background-color: #222222;
     border-radius: 10px;
-    border: 2px solid rgba(255,255,255,0.5);;
+    border: 2px solid rgba(255,255,255,0.5);
     padding:10px;
     align-items: center;
     width:50%;
@@ -21,6 +21,25 @@
     height:100%;
     background-color: rgba(0,0,0,0.3);
     z-index:4;
+}
+
+.quote-exit{
+    background-color:black;
+    font-size:30px;
+    font-weight:bold;
+    padding:10px;
+    border-radius:10px;
+    border: 2px solid rgba(255,255,255,0.5);
+    cursor:pointer;
+    margin-right:10px;
+}
+
+.quote-submission-title{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .quote-submission-container h1{

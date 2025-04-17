@@ -16,7 +16,7 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
 
     const { cityList } = useFetchCities(state)
 
-    const roofTypes = ['Foam','Metal','TPO'];
+    const roofTypes = ['Foam', 'Tile', 'TPO', 'Wood', 'Composite', 'Metal'];
 
     const addQuote = async () => {
         if(!cleanseInput()){
@@ -87,7 +87,10 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
     return(
         <div className='background-filter'>
             <div className='quote-submission-container' id ='quote-submit'>
-                <h1>Add a new quote</h1>
+                <div className='quote-submission-title'>
+                    <h1 style={{marginLeft:'30%'}}>Add a new quote</h1>
+                    <p className='quote-exit' onClick={()=>setIsEnterQuote(false)}>X</p>
+                </div>
                 <form>
                     <input type='text' name='contractor-name' placeholder='Contractor Name' value={contractorName} onChange={(e)=>setContractorName(e.target.value)}/>
                     <input type='text' name='company-name' placeholder='Company Name' value={companyName} onChange={(e)=>setCompanyName(e.target.value)}/>
