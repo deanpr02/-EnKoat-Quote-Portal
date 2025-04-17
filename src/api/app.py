@@ -3,8 +3,24 @@ from flask_cors import CORS
 from database import db, Quote
 import config
 import json
+from sqlalchemy import func
 
 states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+months = {
+    '01': 'Jan.',
+    '02': 'Feb.',
+    '03': 'Mar.',
+    '04': 'Apr.',
+    '05': 'May',
+    '06': 'Jun.',
+    '07': 'Jul.',
+    '08': 'Aug.',
+    '09': 'Sep.',
+    '10': 'Oct.',
+    '11': 'Nov.',
+    '12': 'Dec.'
+}
+
 
 app = Flask(__name__)
 CORS(app)
@@ -77,6 +93,17 @@ def get_roof_types():
     
     return jsonify(roof_obj)
 
+@app.route('/api/month_totals',methods=['GET'])
+def get_month_totals():
+    monthly_totals = db.session.query(
+        func.substr(Quote.date, 1, 2).label('month'),
+        func.count(Quote.id).label('count')
+    ).group_by('month').all()
+
+    month_totals = [{'month': months[row.month],'count':row.count} for row in monthly_totals]
+
+    return jsonify(month_totals)
+
 
 
 """
@@ -96,8 +123,12 @@ def preload_database():
 
 if __name__ == '__main__':
     with app.app_context():
-        db.drop_all()
-        db.session.commit()
+        #db.drop_all()
+        #db.session.commit()
         db.create_all()
-        preload_database()
+        #preload_database()
+        is_empty = db.session.query(Quote.id).first() is None
+        if(is_empty):
+            print('Database is empty, initializing database with 1000 random values')
+            preload_database()
     app.run(debug=True,port=5000)

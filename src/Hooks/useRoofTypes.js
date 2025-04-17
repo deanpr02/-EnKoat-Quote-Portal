@@ -10,7 +10,6 @@ export function useRoofTypes(){
                 throw new Error(`HTTP error, stats: ${response.status}`);
             }
                 const result = await response.json()
-                console.log(result)
                 setTypeCounts(result)
         }
         catch (error) {

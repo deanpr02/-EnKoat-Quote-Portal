@@ -1,30 +1,32 @@
 import { useState,useEffect } from 'react'
-import { BarChart,PieChart } from '@mui/x-charts'
+import { BarChart,PieChart,LineChart } from '@mui/x-charts'
 import { useStateTotals } from '../Hooks/useStateTotals'
 import { useRoofTypes } from '../Hooks/useRoofTypes'
+import { useMonthTotals } from '../Hooks/useMonthTotals'
 import Map from './Map';
 
 import './PerformanceDashboard.css'
 
-//bar graph of monthly totals of projects
-//pie chart of number of projects by state
-//have a picture of the state and then it shows dots on the map of locations and if you hover over it it says the number of quotes
-
 export default function PerformanceDashboard({quotes}){
     const { totals,refetch } = useStateTotals();
-    const {typeCounts,refetchTypes} = useRoofTypes()
-    const [selectedState,setSelectedState] = useState('AZ')
+    const { months,refetchMonths } = useMonthTotals();
+    const { typeCounts,refetchTypes } = useRoofTypes()
+    const [ selectedState,setSelectedState ] = useState('AZ')
 
     useEffect(() => {
         refetch();
         refetchTypes();
+        refetchMonths();
     },[quotes])
 
     return(
         <div className='performance-container'>
             <p>Performance</p>
             {totals && <QuotesBarChart totals={totals}/>}
-            {typeCounts && <QuotesPieChart data={typeCounts}/>}
+            <div style={{display:'flex',flexDirection:'row'}}>
+                {months && <QuotesLineChart data={months}/>}
+                {typeCounts && <QuotesPieChart data={typeCounts}/>}
+            </div>
             <Map selectedState={selectedState} setSelectedState={setSelectedState}/>
         </div>
     )
@@ -36,7 +38,7 @@ function QuotesBarChart({totals}){
 
     return(
         <div style={{display:'flex',width:1100,height:300}}>
-            <div style={{ textAlign: 'center',marginTop: 8,fontSize: 10, color: '#444',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
+            <div style={{ textAlign: 'center',marginTop: 8,fontWeight:'bold',fontSize: 10, color: '#444',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
                 # of quotes
             </div>
             <BarChart 
@@ -89,6 +91,46 @@ function QuotesPieChart({data}){
             width={400}
             height={400}
             />
+        </div>
+    )
+}
+
+function QuotesLineChart({data}){
+    const xValues = data.map((item) => item.month);
+    const yValues = data.map((item) => item.count);
+    console.log(yValues)
+
+    return(
+        <div style={{width:'60vh',height:'50vh'}}>
+        <LineChart 
+        xAxis={[{
+            data:xValues,
+            scaleType:'band',
+            tickLabelInterval: () => true
+        }]}
+        yAxis={[{
+            tickLabelInterval: () => true
+        }]}
+        series={[{
+            data:yValues,
+            color: 'red'
+        }]}
+        grid={{ vertical: true, horizontal: true }}
+        sx={{
+            ".MuiChartsAxis-root .MuiChartsAxis-line": {
+                stroke: "white", // Changes axis line color
+            },
+            ".MuiChartsAxis-tickLabel": {
+                fill: "white", // Changes axis text color
+            },
+            '.MuiChartsGrid-line': {
+                stroke: 'white'  // Change grid line color
+            },
+            '.MuiChartsAxis-label': {
+                    fill: 'white !important',
+                },
+        }}
+        />
         </div>
     )
 }

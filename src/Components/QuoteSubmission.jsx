@@ -24,14 +24,18 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
         }
 
         const now = new Date();
-        const date = now.toLocaleDateString();
+        const month = String(now.getMonth() + 1).padStart(2, '0');  // '01'
+        const day = String(now.getDate()).padStart(2, '0');         // '10'
+        const year = now.getFullYear();
+
+        const formattedDate = `${month}/${day}/${year}`;
 
         const response = await fetch('/api/add_data',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({contractorName:contractorName,companyName:companyName,roofSize:roofSize,roofType:roofType,city:city,state:state,date:date})
+            body: JSON.stringify({contractorName:contractorName,companyName:companyName,roofSize:roofSize,roofType:roofType,city:city,state:state,date:formattedDate})
         });
 
         if(!response.ok){
