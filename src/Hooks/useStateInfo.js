@@ -109,20 +109,29 @@ export function useStateInfo(stateName){
     const [stateImage,setStateImage] = useState(undefined)
 
     useEffect(() => {
-        fetch('./states.json')
-            .then(response => {
-                if(!response.ok){
-                    throw new Error(`HTTP error, status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                setStateInfo(data[stateName])
-                setStateImage(stateImages[stateName])
-            })
-            .catch(error => {
-                console.error('Failed to load JSON: ',error);
-            })
+        const cachedData = sessionStorage.getItem(`state-info-${stateName}`)
+        if(cachedData){
+            setStateInfo(JSON.parse(cachedData))
+            setStateImage(stateImages[stateName])
+        }
+        else{
+            fetch('./states.json')
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error(`HTTP error, status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setStateInfo(data[stateName])
+                    setStateImage(stateImages[stateName])
+                    sessionStorage.setItem(`state-info-${stateName}`,JSON.stringify(data[stateName]))
+                })
+                .catch(error => {
+                    console.error('Failed to load JSON: ',error);
+                })
+        }
+
     },[stateName])
 
     return {stateInfo,stateImage}

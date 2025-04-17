@@ -38,7 +38,6 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
             throw new Error(`HTTP error, status:${response.status}`)
         }
         const result = await response.json();
-        console.log(result);
 
         resetInput();
         refetch();
