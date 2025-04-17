@@ -106,33 +106,36 @@ const stateImages = {
 
 export function useStateInfo(stateName){
     const [stateInfo,setStateInfo] = useState(undefined)
+    const [cityCounts,setCityCounts] = useState(undefined)
     const [stateImage,setStateImage] = useState(undefined)
 
     useEffect(() => {
-        const cachedData = sessionStorage.getItem(`state-info-${stateName}`)
-        if(cachedData){
-            setStateInfo(JSON.parse(cachedData))
+        const cachedStates = sessionStorage.getItem(`state-info-${stateName}`)
+        const cachedCities = sessionStorage.getItem(`city-counts-${stateName}`)
+        if(cachedStates && cachedCities){
+            setStateInfo(JSON.parse(cachedStates))
             setStateImage(stateImages[stateName])
+            setCityCounts(JSON.parse(cachedCities))
         }
         else{
-            fetch('./states.json')
-                .then(response => {
-                    if(!response.ok){
-                        throw new Error(`HTTP error, status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    setStateInfo(data[stateName])
+            Promise.all([
+                fetch('./states.json').then(res => res.json()),
+                fetch('/api/all_city_totals').then(res => res.json())
+                ])
+                .then(([stateData,cityData]) => {
+                    setStateInfo(stateData[stateName])
                     setStateImage(stateImages[stateName])
-                    sessionStorage.setItem(`state-info-${stateName}`,JSON.stringify(data[stateName]))
+                    setCityCounts(cityData[stateName])
+
+                    sessionStorage.setItem(`state-info-${stateName}`,JSON.stringify(stateData[stateName]))
+                    sessionStorage.setItem(`city-counts-${stateName}`,JSON.stringify(cityData[stateName]))
                 })
                 .catch(error => {
-                    console.error('Failed to load JSON: ',error);
-                })
+                        console.error('Failed to load JSON: ',error);
+                    })
         }
 
     },[stateName])
 
-    return {stateInfo,stateImage}
+    return {stateInfo,stateImage,cityCounts}
 }

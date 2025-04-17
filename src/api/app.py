@@ -128,6 +128,34 @@ def get_month_totals():
 
     return jsonify(month_totals)
 
+
+@app.route('/api/all_city_totals', methods=['GET'])
+def get_all_city_totals():
+    """
+    Gets quote counts for all cities in all states
+    
+    Returns:
+    JSON -> {
+        "CA": [{"city": "Los Angeles", "count": 42}, ...],
+        "AZ": [{"city": "Phoenix", "count": 15}, ...],
+        ...
+    }
+    """
+    city_counts = db.session.query(
+        Quote.state,
+        Quote.city,
+        func.count(Quote.id).label('count')
+    ).group_by(Quote.state, Quote.city).all()
+
+    result = {}
+    for state, city, count in city_counts:
+        if state not in result:
+            result[state] = {}
+        result[state].update({city: count})
+    
+    return jsonify(result)
+
+
 def preload_database():
     """
     Preloads our database with randomly generated quote data in the contractors.json file
