@@ -4,7 +4,7 @@
 }
 
 .dropdown-text{
-    font-size:0.8vw;
+    font-size:1vw;
     padding-right:10px;
     margin: 5px;
 }
@@ -39,7 +39,7 @@
     z-index:3;
     background-color:black;
     border:2px solid gray;
-    font-size: 16px;
+    font-size: 1vw;
     border-radius: 10px;
     align-items:center;
     justify-content: center;

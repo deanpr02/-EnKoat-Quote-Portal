@@ -42,13 +42,13 @@ function QuotesBarChart({totals}){
 
     return(
         <div style={{display:'flex',width:'65vw',height:300}}>
-            <div style={{ textAlign: 'center',marginTop: 8,fontWeight:'bold',fontSize: 10, color: 'white',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
+            <div style={{ textAlign: 'center',marginTop: 8,fontWeight:'bold',fontSize: 14, color: 'white',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
                 # of quotes
             </div>
             <BarChart 
                 series={[{data:yValues}]}
-                xAxis={[{scaleType: 'band',data:xValues,dataKey:'States',tickLabelStyle:{fontSize:10}}]}
-                yAxis={[]}
+                xAxis={[{scaleType: 'band',data:xValues,dataKey:'States',tickLabelStyle:{fontSize:12,fontFamily:'Bebas Neue, sans serif'}}]}
+                yAxis={[{tickLabelStyle:{fontFamily:'Bebas Neue, sans serif'}}]}
                 sx={{
                     ".MuiChartsAxis-root .MuiChartsAxis-line": {
                 stroke: "white", // Changes axis line color
@@ -90,7 +90,8 @@ function QuotesPieChart({data}){
                     itemGap:10,
                     labelStyle:{
                         fontSize:14,
-                        fill:'white'
+                        fill:'white',
+                        fontFamily:'Bebas Neue, sans serif'
                     }
                 }
             }}
@@ -110,17 +111,18 @@ function QuotesPieChart({data}){
 function QuotesLineChart({data}){
     const xValues = data.map((item) => item.month);
     const yValues = data.map((item) => item.count);
-    console.log(yValues)
 
     return(
-        <div style={{width:'60vh',height:'50vh'}}>
+        <div style={{width:'60vh',height:'50vh',borderRight:'2px solid black'}}>
         <LineChart 
         xAxis={[{
             data:xValues,
             scaleType:'band',
+            tickLabelStyle:{fontFamily:'Bebas Neue, sans serif'},
             tickLabelInterval: () => true
         }]}
         yAxis={[{
+            tickLabelStyle:{fontFamily:'Bebas Neue, sans serif'},
             tickLabelInterval: () => true
         }]}
         series={[{
