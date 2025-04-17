@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { BarChart } from '@mui/x-charts'
+import { BarChart,PieChart } from '@mui/x-charts'
 import { useStateTotals } from '../Hooks/useStateTotals'
+import { useRoofTypes } from '../Hooks/useRoofTypes'
 import Map from './Map';
 
 import './PerformanceDashboard.css'
@@ -11,12 +12,14 @@ import './PerformanceDashboard.css'
 
 export default function PerformanceDashboard({quotes}){
     const { totals,refetch } = useStateTotals();
+    const {typeCounts,refetchTypes} = useRoofTypes()
     const [selectedState,setSelectedState] = useState('AZ')
 
     return(
         <div className='performance-container'>
             <p>Performance</p>
             {totals && <QuotesBarChart totals={totals}/>}
+            {typeCounts && <QuotesPieChart data={typeCounts}/>}
             <Map selectedState={selectedState} setSelectedState={setSelectedState}/>
         </div>
     )
@@ -37,6 +40,50 @@ function QuotesBarChart({totals}){
                 yAxis={[]}
             />
 
+        </div>
+    )
+}
+
+function QuotesPieChart({data}){
+    const total = data.reduce((sum, item) => sum + item.value, 0);
+
+    return(
+        <div style={{display:'flex'}}>
+            <PieChart
+            colors={['rgb(36, 135, 228)','darkslateblue','rgb(108, 201, 238)']}
+            series={[
+                {
+                    data:data,
+                    arcLabel: (item) => `${((item.value / total)*100).toFixed(1)}` + '%'
+                }
+            ]}
+            margin={{top:50,bottom:50,left:50,right:120}}
+            slotProps={{
+                legend: {
+                    direction:'column',
+                    position: {vertical:'middle',horizontal:'right'},
+                    itemMarkWidth:20,
+                    itemMarkHeight:20,
+                    padding:{
+                        left:60
+                    },
+                    markGap:5,
+                    itemGap:10,
+                    labelStyle:{
+                        fontSize:14,
+                        fill:'white'
+                    }
+                }
+            }}
+            sx={{
+                '.MuiPieArcLabel-root':{
+                    fill:'white',
+                    fontSize:12
+                }
+            }}
+            width={400}
+            height={400}
+            />
         </div>
     )
 }

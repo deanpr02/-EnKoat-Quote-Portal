@@ -67,6 +67,19 @@ def get_state_totals():
     return jsonify(state_totals)
 
 
+@app.route('/api/roof_types',methods=['GET'])
+def get_roof_types():
+    roof_types = ['Foam', 'Tile', 'TPO', 'Wood', 'Composite', 'Metal']
+    roof_obj = []
+    for roof_type in roof_types:
+        type_q = Quote.query.filter_by(roof_type=roof_type).all()
+        roof_obj.append({'value':len(type_q),'label':roof_type})
+    
+    return jsonify(roof_obj)
+     
+
+
+
 
 """
 Function to preload our database with randomly generated quote data in the contractors.json file
