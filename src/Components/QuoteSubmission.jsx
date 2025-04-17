@@ -79,7 +79,7 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
             return false;
         }
 
-        else if(!Number.isInteger(Number(roofSize))){
+        else if(roofSize.length === 0 || !Number.isInteger(Number(roofSize))){
             alert('Roof size is not an integer!');
             return false;
         }

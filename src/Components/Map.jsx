@@ -73,12 +73,22 @@ function State({left,right,top,bottom,cityPositions,cityCounts,image}){
                 cityObjects.map((obj) => {
                     return (
                         <div style={{display:'flex',alignItems:'center'}}>
-                            <div style={{width:'1vh',height:'1vh',backgroundColor:obj.color}}></div><p>{obj.name}</p>
+                            <CityRow name={obj.name} count={obj.info} color={obj.color}/>
                         </div>
                     )
                 })
             }
             </div>
         </div>
+    )
+}
+
+function CityRow({name,count,color}){
+    return(
+        <>
+            <div style={{width:'1vh',height:'1vh',backgroundColor:color}}></div>
+            <p>{name}:</p>
+            <p>{count}</p>
+        </>
     )
 }
