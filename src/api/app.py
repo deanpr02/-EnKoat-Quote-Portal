@@ -76,8 +76,6 @@ def get_roof_types():
         roof_obj.append({'value':len(type_q),'label':roof_type})
     
     return jsonify(roof_obj)
-     
-
 
 
 

@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState,useContext } from 'react'
 import DropDown from './Dropdown';
+import { useFetchCities } from '../Hooks/useFetchCities';
+import { StateContext } from './App';
 
 import './QuoteSubmission.css'
 
@@ -8,8 +10,11 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
     const [companyName,setCompanyName] = useState('');
     const [roofSize,setRoofSize] = useState('');
     const [roofType,setRoofType] = useState('Foam');
-    const [city,setCity] = useState('');
-    const [state,setState] = useState('');
+    const [city,setCity] = useState('---');
+    const [state,setState] = useState('---');
+    const stateList = useContext(StateContext)
+
+    const { cityList } = useFetchCities(state)
 
     const roofTypes = ['Foam','Metal','TPO'];
 
@@ -44,8 +49,8 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
     const resetInput = () => {
         setContractorName('')
         setCompanyName('')
-        setCity('')
-        setState('')
+        setCity('---')
+        setState('---')
         setRoofType('Foam')
         setRoofSize('')
     }
@@ -61,12 +66,12 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
             return false;
         }
 
-        else if(city == '' || city.length > 20){
+        else if(city == '---' || city.length > 20){
             alert('Invalid city name!');
             return false;
         }
 
-        else if(state == '' || state.length > 20){
+        else if(state == '---' || state.length > 20){
             alert('Invalid state name!');
             return false;
         }
@@ -86,7 +91,16 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
                 <form>
                     <input type='text' name='contractor-name' placeholder='Contractor Name' value={contractorName} onChange={(e)=>setContractorName(e.target.value)}/>
                     <input type='text' name='company-name' placeholder='Company Name' value={companyName} onChange={(e)=>setCompanyName(e.target.value)}/>
-                    <div className='location'><input type='text' name='location' placeholder='City' value={city} onChange={(e)=>setCity(e.target.value)}/><input type='text' name='location' placeholder='State' value={state} onChange={(e)=>setState(e.target.value)}/></div>
+                    <div className='location'>
+                        <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center',width:'10vw'}}>
+                            <p>State:</p>
+                            <DropDown data={stateList} state={state} setFunc={setState} style={{minHeight:'200px'}}/>
+                        </div>
+                        <div>
+                            <p style={{display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}>City:</p>
+                            <DropDown data={cityList} state={city} setFunc={setCity}/>
+                        </div>
+                    </div>
                     <div className='roof-info'>
                         <input type='text' name='roof-size' placeholder='Roof Size (sq)' value={roofSize} onChange={(e)=>setRoofSize(e.target.value)}/>
                         <DropDown data={roofTypes} state={roofType} setFunc={setRoofType}/>

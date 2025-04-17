@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { BarChart,PieChart } from '@mui/x-charts'
 import { useStateTotals } from '../Hooks/useStateTotals'
 import { useRoofTypes } from '../Hooks/useRoofTypes'
@@ -14,6 +14,11 @@ export default function PerformanceDashboard({quotes}){
     const { totals,refetch } = useStateTotals();
     const {typeCounts,refetchTypes} = useRoofTypes()
     const [selectedState,setSelectedState] = useState('AZ')
+
+    useEffect(() => {
+        refetch();
+        refetchTypes();
+    },[quotes])
 
     return(
         <div className='performance-container'>
