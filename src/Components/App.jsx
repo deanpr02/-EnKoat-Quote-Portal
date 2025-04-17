@@ -14,7 +14,7 @@ function App() {
 
   return (
     <StateContext.Provider value={states}>
-      <div className='dashboard-container' style={{width:'100%'}}>
+      <div className='dashboard-container'>
         <QuoteTable quotes={quotes} setIsEnterQuote={setIsEnterQuote}/>
         <PerformanceDashboard quotes={quotes}/>
 

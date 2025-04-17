@@ -27,7 +27,7 @@ export default function PerformanceDashboard({quotes}){
             <div style={{backgroundColor:'rgba(50,50,50,0.5)',borderRadius:'10px',border:'2px solid black',margin:'5px'}}>
                 {totals && <QuotesBarChart totals={totals}/>}
             </div>
-            <div style={{display:'flex',flexDirection:'row',backgroundColor:'rgba(50,50,50,0.5)',borderRadius:'10px',border:'2px solid black',margin:'5px'}}>
+            <div style={{display:'flex',flexDirection:'row',backgroundColor:'rgba(50,50,50,0.5)',borderRadius:'10px',border:'2px solid black',margin:'5px',width:'80%'}}>
                 {months && <QuotesLineChart data={months}/>}
                 {typeCounts && <QuotesPieChart data={typeCounts}/>}
             </div>
@@ -41,7 +41,7 @@ function QuotesBarChart({totals}){
     const yValues = totals.map(item => item.y);
 
     return(
-        <div style={{display:'flex',width:1100,height:300}}>
+        <div style={{display:'flex',width:'65vw',height:300}}>
             <div style={{ textAlign: 'center',marginTop: 8,fontWeight:'bold',fontSize: 10, color: 'white',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
                 # of quotes
             </div>

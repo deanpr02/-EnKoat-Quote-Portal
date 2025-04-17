@@ -1,7 +1,7 @@
 .performance-container{
-    width:70vw;
+    width:70%;
     background-color: gray;
-    margin:20px;
+    margin:10px;
     border-radius:10px;
     display:flex;
     flex-direction: column;

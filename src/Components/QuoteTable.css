@@ -23,7 +23,7 @@
 
 
 .quote-table-container{
-    width:40%;
+    width:30%;
     border-radius:10px;
     height:70vh;
 }
@@ -32,6 +32,7 @@
     overflow:scroll;
     border: 2px solid rgba(200,200,200,0.7);
     height:70vh;
+    font-size:0.7vw;
 }
 
 .data-table-members::-webkit-scrollbar {
@@ -48,7 +49,7 @@
     padding:2px;
     border-bottom:2px solid gray;
     z-index:0;
-    font-size:12px;
+    font-size:0.7vw;
     overflow:hidden;
 }
 
