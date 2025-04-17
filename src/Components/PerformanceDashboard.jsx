@@ -21,9 +21,13 @@ export default function PerformanceDashboard({quotes}){
 
     return(
         <div className='performance-container'>
-            <p>Performance</p>
-            {totals && <QuotesBarChart totals={totals}/>}
-            <div style={{display:'flex',flexDirection:'row'}}>
+            <p style={{fontSize:'36px',width:'100%',display:'flex',justifyContent:'center',borderBottom:'2px solid black',backgroundColor:'rgba(50,50,50,0.5)',margin:'0',marginBottom:'10px'}}>
+                Performance Dashboard
+            </p>
+            <div style={{backgroundColor:'rgba(50,50,50,0.5)',borderRadius:'10px',border:'2px solid black',margin:'5px'}}>
+                {totals && <QuotesBarChart totals={totals}/>}
+            </div>
+            <div style={{display:'flex',flexDirection:'row',backgroundColor:'rgba(50,50,50,0.5)',borderRadius:'10px',border:'2px solid black',margin:'5px'}}>
                 {months && <QuotesLineChart data={months}/>}
                 {typeCounts && <QuotesPieChart data={typeCounts}/>}
             </div>
@@ -38,13 +42,21 @@ function QuotesBarChart({totals}){
 
     return(
         <div style={{display:'flex',width:1100,height:300}}>
-            <div style={{ textAlign: 'center',marginTop: 8,fontWeight:'bold',fontSize: 10, color: '#444',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
+            <div style={{ textAlign: 'center',marginTop: 8,fontWeight:'bold',fontSize: 10, color: 'white',alignSelf:'center',justifyContent:'center', transform:'rotate(90deg)'}}>
                 # of quotes
             </div>
             <BarChart 
                 series={[{data:yValues}]}
                 xAxis={[{scaleType: 'band',data:xValues,dataKey:'States',tickLabelStyle:{fontSize:10}}]}
                 yAxis={[]}
+                sx={{
+                    ".MuiChartsAxis-root .MuiChartsAxis-line": {
+                stroke: "white", // Changes axis line color
+            },
+                    ".MuiChartsAxis-tickLabel": {
+                fill: "white !important", // Changes axis text color
+            },
+                }}
             />
 
         </div>
@@ -121,7 +133,7 @@ function QuotesLineChart({data}){
                 stroke: "white", // Changes axis line color
             },
             ".MuiChartsAxis-tickLabel": {
-                fill: "white", // Changes axis text color
+                fill: "white !important", // Changes axis text color
             },
             '.MuiChartsGrid-line': {
                 stroke: 'white'  // Change grid line color

@@ -34,6 +34,9 @@ db.init_app(app)
 
 @app.route('/api/add_data',methods=['POST'])
 def add_quote():
+    """
+    Adds a quote to the database
+    """
     data = request.get_json()
     contractor_name = data['contractorName']
     company_name = data['companyName']
@@ -53,6 +56,9 @@ def add_quote():
     
 @app.route('/api/get_quotes',methods=['GET'])
 def get_database():
+    """
+    Fetches all the quotes from the database
+    """
     quotes = Quote.query.all()
 
     quotes_list = []
@@ -75,6 +81,12 @@ def get_database():
 
 @app.route('/api/state_totals',methods=['GET'])
 def get_state_totals():
+    """
+    Calculates the amount of quotes for each state in the U.S.
+
+    Return:
+    JSON -> [{'x':str,'y':int},...]
+    """
     state_totals = []
     for state in states:
         state_quotes = Quote.query.filter_by(state=state).all()
@@ -85,6 +97,12 @@ def get_state_totals():
 
 @app.route('/api/roof_types',methods=['GET'])
 def get_roof_types():
+    """
+    Calculates the number of quotes with each roof type
+
+    Return:
+    JSON -> [{'value':int,'label':str},...]
+    """
     roof_types = ['Foam', 'Tile', 'TPO', 'Wood', 'Composite', 'Metal']
     roof_obj = []
     for roof_type in roof_types:
@@ -95,6 +113,12 @@ def get_roof_types():
 
 @app.route('/api/month_totals',methods=['GET'])
 def get_month_totals():
+    """
+    Calculates how many quotes are in the database for each month in the year
+
+    Return:
+    JSON -> [{'month':str,'count':int},...]
+    """
     monthly_totals = db.session.query(
         func.substr(Quote.date, 1, 2).label('month'),
         func.count(Quote.id).label('count')
@@ -104,12 +128,10 @@ def get_month_totals():
 
     return jsonify(month_totals)
 
-
-
-"""
-Function to preload our database with randomly generated quote data in the contractors.json file
-"""
 def preload_database():
+    """
+    Preloads our database with randomly generated quote data in the contractors.json file
+    """
     path = './contractors.json'
     with open(path,'r') as f:
         data = json.load(f)
