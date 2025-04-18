@@ -1,7 +1,7 @@
 import { useState,useContext } from 'react'
-import DropDown from './Dropdown';
 import { useFetchCities } from '../Hooks/useFetchCities';
 import { StateContext } from './App';
+import DropDown from './Dropdown';
 
 import './QuoteSubmission.css'
 
@@ -42,6 +42,7 @@ export default function QuoteSubmission({refetch,setIsEnterQuote}){
             throw new Error(`HTTP error, status:${response.status}`)
         }
         const result = await response.json();
+        console.log('Quote successfully added to the databse')
 
         resetInput();
         refetch();

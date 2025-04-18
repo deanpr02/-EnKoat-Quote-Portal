@@ -138,10 +138,10 @@ function QuotesLineChart({data}){
                 fill: "white !important", // Changes axis text color
             },
             '.MuiChartsGrid-line': {
-                stroke: 'white'  // Change grid line color
+                stroke: 'white'  // Changes grid line color
             },
             '.MuiChartsAxis-label': {
-                    fill: 'white !important',
+                    fill: 'white !important', // Changes axis label color
                 },
         }}
         />

@@ -78,8 +78,6 @@ def generate_random_quotes(states_obj):
 def create_json_data():
     csv_data = extract_csv_data()
     generate_random_quotes(csv_data)
+    print('Successfully generated data!')
 
-#if __name__ == '__main__':
-#    obj = extract_csv_data()
-#    generate_random_quotes(obj)
 

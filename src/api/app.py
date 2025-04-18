@@ -28,12 +28,10 @@ MONTHS = {
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 app.config.from_object(config)
 
 db.init_app(app)
+
 
 @app.route('/api/add_data',methods=['POST'])
 def add_quote():
@@ -57,6 +55,8 @@ def add_quote():
     except:
         return {'failed'},400
     
+
+
 @app.route('/api/get_quotes',methods=['GET'])
 def get_database():
     """
@@ -113,6 +113,7 @@ def get_roof_types():
         roof_obj.append({'value':len(type_q),'label':roof_type})
     
     return jsonify(roof_obj)
+
 
 @app.route('/api/month_totals',methods=['GET'])
 def get_month_totals():
@@ -179,10 +180,8 @@ if __name__ == '__main__':
         create_json_data()
 
     with app.app_context():
-        #db.drop_all()
-        #db.session.commit()
         db.create_all()
-        #preload_database()
+        
         is_empty = db.session.query(Quote.id).first() is None
         if(is_empty):
             print('Database is empty, initializing database with 1000 random values')

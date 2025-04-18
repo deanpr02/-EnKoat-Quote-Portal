@@ -1,4 +1,4 @@
-import { useState,useEffect,useMemo } from 'react'
+import { useState,useMemo } from 'react'
 
 import './QuoteTable.css'
 
@@ -11,12 +11,12 @@ export default function QuoteTable({quotes,setIsEnterQuote}){
         const arr = [...quotes]; // Copy array to avoid mutation
     
         return arr.sort((a, b) => {
-          if (sortKey === 'roof_size') {
+        if (sortKey === 'roof_size') { // Sort numerically for roof size
             return (b.roof_size - a.roof_size) * sortDirection;
-          }
+        }
           return a[sortKey].localeCompare(b[sortKey]) * sortDirection;
         });
-      }, [quotes, sortKey, sortDirection]);
+    }, [quotes, sortKey, sortDirection]);
 
     return(
         <div className='quote-table-container'>
