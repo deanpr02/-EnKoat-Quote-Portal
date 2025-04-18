@@ -110,14 +110,6 @@ export function useStateInfo(stateName){
     const [stateImage,setStateImage] = useState(undefined)
 
     useEffect(() => {
-        const cachedStates = sessionStorage.getItem(`state-info-${stateName}`)
-        const cachedCities = sessionStorage.getItem(`city-counts-${stateName}`)
-        if(cachedStates && cachedCities){
-            setStateInfo(JSON.parse(cachedStates))
-            setStateImage(stateImages[stateName])
-            setCityCounts(JSON.parse(cachedCities))
-        }
-        else{
             Promise.all([
                 fetch('./states.json').then(res => res.json()),
                 fetch('/api/all_city_totals').then(res => res.json())
@@ -126,14 +118,10 @@ export function useStateInfo(stateName){
                     setStateInfo(stateData[stateName])
                     setStateImage(stateImages[stateName])
                     setCityCounts(cityData[stateName])
-
-                    sessionStorage.setItem(`state-info-${stateName}`,JSON.stringify(stateData[stateName]))
-                    sessionStorage.setItem(`city-counts-${stateName}`,JSON.stringify(cityData[stateName]))
                 })
                 .catch(error => {
                         console.error('Failed to load JSON: ',error);
                     })
-        }
 
     },[stateName])
 

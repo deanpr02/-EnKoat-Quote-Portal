@@ -1,12 +1,15 @@
-from flask import Flask, render_template, request, redirect, jsonify
+import json
+import os
+from data import create_json_data
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from database import db, Quote
 import config
-import json
 from sqlalchemy import func
 
-states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
-months = {
+#constant data
+STATES = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+MONTHS = {
     '01': 'Jan.',
     '02': 'Feb.',
     '03': 'Mar.',
@@ -88,7 +91,7 @@ def get_state_totals():
     JSON -> [{'x':str,'y':int},...]
     """
     state_totals = []
-    for state in states:
+    for state in STATES:
         state_quotes = Quote.query.filter_by(state=state).all()
         state_totals.append({'x':state,'y':len(state_quotes)})
     
@@ -124,7 +127,7 @@ def get_month_totals():
         func.count(Quote.id).label('count')
     ).group_by('month').all()
 
-    month_totals = [{'month': months[row.month],'count':row.count} for row in monthly_totals]
+    month_totals = [{'month': MONTHS[row.month],'count':row.count} for row in monthly_totals]
 
     return jsonify(month_totals)
 
@@ -160,8 +163,7 @@ def preload_database():
     """
     Preloads our database with randomly generated quote data in the contractors.json file
     """
-    path = './contractors.json'
-    with open(path,'r') as f:
+    with open('./contractors.json','r') as f:
         data = json.load(f)
     
     for item in data:
@@ -172,6 +174,10 @@ def preload_database():
 
 
 if __name__ == '__main__':
+    #generate our random quotes to fill in our database
+    if not os.path.exists('./contractors.json') or not os.path.exists('./states.json'):
+        create_json_data()
+
     with app.app_context():
         #db.drop_all()
         #db.session.commit()
