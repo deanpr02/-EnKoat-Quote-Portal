@@ -23,8 +23,8 @@ The frontend of the application is built using React with JavaScript. The backen
 The database is preloaded with random quotes using randomly generated contractor and company names using the Faker python library. The cities are randomly selected from a list of 15 cities from each state in the United States. Each random quote is given a randomized U.S state and then a random city from that state's allotted city list. The city dataset contains the longitude and latitude of that city's location which is used for locating the city on the map component in the project. Lastly, a dataset is used to gather the bounding boxes for each state's (east-most,west-most,north-most,south-most) lat/long values.
 
 Acknowledgements:<br/>
-Dataset used for U.S. cities -> https://simplemaps.com/data/us-cities<br\>
-Dataset used for State bounding boxes -> https://gist.github.com/a8dx/2340f9527af64f8ef8439366de981168<br\>
+Dataset used for U.S. cities -> https://simplemaps.com/data/us-cities<br/>
+Dataset used for State bounding boxes -> https://gist.github.com/a8dx/2340f9527af64f8ef8439366de981168<br/>
 
 
 ===Improvements===<br/>
