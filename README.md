@@ -12,19 +12,19 @@ The frontend of the application is built using React with JavaScript. The backen
 
 ===Install/Run Guide===<br/>
 1. Install Python and Node.js
-2. run the command 'npm install'
-3. run the command 'pip install -r requirements.txt'
-4. run the command 'python ./src/api/app.py' to start the backend
-5. run the command 'npm run dev' to start the frontend
-6. navigate to http://localhost:5173
+2. Run the command 'npm install'
+3. Run the command 'pip install -r requirements.txt'
+4. Run the command 'python ./src/api/app.py' to start the backend
+5. Run the command 'npm run dev' to start the frontend
+6. Navigate to http://localhost:5173
 
 
 ===Mock Data===<br/>
 The database is preloaded with random quotes using randomly generated contractor and company names using the Faker python library. The cities are randomly selected from a list of 15 cities from each state in the United States. Each random quote is given a randomized U.S state and then a random city from that state's allotted city list. The city dataset contains the longitude and latitude of that city's location which is used for locating the city on the map component in the project. Lastly, a dataset is used to gather the bounding boxes for each state's (east-most,west-most,north-most,south-most) lat/long values.
 
 Acknowledgements:<br/>
-Dataset used for U.S. cities -> https://simplemaps.com/data/us-cities
-Dataset used for State bounding boxes -> https://gist.github.com/a8dx/2340f9527af64f8ef8439366de981168
+Dataset used for U.S. cities -> https://simplemaps.com/data/us-cities<br\>
+Dataset used for State bounding boxes -> https://gist.github.com/a8dx/2340f9527af64f8ef8439366de981168<br\>
 
 
 ===Improvements===<br/>
